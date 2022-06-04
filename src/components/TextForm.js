@@ -8,6 +8,7 @@ export default function TextForm(props) {
         console.log("Uppercase was clicked" + text);
         let newText = text.toUpperCase();
         setText(newText);
+        props.props.showAlert("Converted to UpperCase","success");
     }
 
 
@@ -15,17 +16,40 @@ export default function TextForm(props) {
         console.log("LowerCase was clicked" + text);
         let newText = text.toLowerCase();
         setText(newText);
+        props.showAlert("Converted to LowerCase","success");
     }
 
     const handleClearText = () => {
         console.log("Clear Text was clicked" + text);
         let newText = '';
         setText(newText);
+        props.showAlert("Text Cleared","success");
+    }
+
+    const handleExtraSpaces = () => {
+        let newText = text.split(/[ ]+/);
+        setText(newText.join(" "));
+        props.showAlert("Extra Spaces Removed","success");
+    }
+
+    const handleCopy = () => {
+        console.log("I am a copy");
+        var text = document.getElementById("myBox");
+        text.select();
+        text.setSelectionRange(0,9999);
+        navigator.clipboard.writeText(text.value);
+        props.showAlert("Text Copied","success");
     }
 
     const handleOnChange = (event) =>{
         console.log("On change");
         setText(event.target.value); //to set a new value dynamically
+    }
+
+    const handleSpeakClick = () => {
+        let message = new SpeechSynthesisUtterance();
+        message.text = text;
+        window.speechSynthesis.speak(message);
     }
 
     const [text, setText]=useState('');
@@ -41,7 +65,9 @@ export default function TextForm(props) {
         <button className="btn btn-primary mx-2" onClick={handleUpClick}>Convert to UpperCase</button>
         <button className="btn btn-primary mx-2" onClick={handleDownClick}>Convert to LowerCase</button>
         <button className="btn btn-primary mx-2" onClick={handleClearText}>Clear Text</button>
-{/*<button className="btn btn-danger mx-2" onClick={handleExtraSpaces}>Remove Extra Spaces</button>*/}
+        <button className="btn btn-danger mx-2" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+        <button className="btn btn-danger mx-2" onClick={handleCopy}>Copy Text</button>
+        <button className="btn btn-warning mx-2" onClick={handleSpeakClick}>Text to Speach</button>
     </div>
     <div className="container my-3" style={{color: props.mode==='dark'?'white':'black'}}>
         <h1>Your Text Summary</h1>
