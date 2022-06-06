@@ -12,6 +12,7 @@ function App() {
   const [mode1,setMode1] = useState('Enable Light Mode')
   const [mode2,setMode2] = useState('light');
   const [alert,setAlert] = useState(null);
+  //const [mode3,setMode3] = useState('#7FFFD4');
 
   const showAlert = (message,type) => {
     setAlert({
@@ -30,6 +31,13 @@ function App() {
       document.body.style.backgroundColor = 'grey';
       showAlert("Darkmode has been enabled!","success");
       setMode2('light')
+      //document.title = 'TextUtils | Dark Mode';
+      /*setInterval(() => {
+        document.title = 'TextUtils is amazing';
+      },2000);
+      setInterval(() => {
+        document.title = 'Install the Plugin now';
+      }, 1500);*/
     }
     else{
       setMode('light');
@@ -37,6 +45,7 @@ function App() {
       document.body.style.backgroundColor = 'white';
       showAlert("LightMode has been enabled!","success");
       setMode2('dark');
+      //document.title = 'TextUtils | Light Mode';
     }
   }
   
